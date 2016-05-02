@@ -21,13 +21,12 @@ public:
     ~MainContentComponent();
     
     void paint (Graphics& g) override;
-    
     void resized() override;
     
     
 private:
-    CaptureView captureView;
     CaptureModel captureModel;
+    CaptureView captureView;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 };

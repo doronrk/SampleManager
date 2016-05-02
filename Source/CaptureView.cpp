@@ -11,11 +11,15 @@
 #include "CaptureView.h"
 
 CaptureView::CaptureView(CaptureModel &captureModel) :
-audioDeviceSelector(captureModel.deviceManager, 0, 2, 0, 2, false, false, true, true)
+deviceSelector(captureModel.deviceManager, 0, 2, 0, 2, false, false, true, true)
 {
-
+    addAndMakeVisible(deviceSelector);
 }
 
 void CaptureView::paint (Graphics& g) {
     g.fillAll(Colours::aliceblue);
+}
+
+void CaptureView::resized() {
+    deviceSelector.setBoundsRelative(0.0, 0.0, 1.0, 1.0);
 }

@@ -13,6 +13,7 @@
 
 CaptureModel::CaptureModel()
 {
+    deviceManager.initialise(2, 2, nullptr, true);
     setAudioChannels(2, 2);
 }
 

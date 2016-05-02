@@ -19,8 +19,9 @@ class CaptureView : public Component
 public:
     CaptureView(CaptureModel &captureModel);
     void paint (Graphics& g) override;
+    void resized() override;
 private:
-    AudioDeviceSelectorComponent audioDeviceSelector;
+    AudioDeviceSelectorComponent deviceSelector;
 };
 
 

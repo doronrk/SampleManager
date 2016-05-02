@@ -9,3 +9,29 @@
 */
 
 #include "CaptureModel.h"
+
+
+CaptureModel::CaptureModel()
+{
+    setAudioChannels(2, 2);
+}
+
+CaptureModel::~CaptureModel()
+{
+    shutdownAudio();
+}
+
+void CaptureModel::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
+{
+    
+}
+
+void CaptureModel::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
+{
+    bufferToFill.clearActiveBufferRegion();
+}
+
+void CaptureModel::releaseResources()
+{
+    
+}

@@ -10,29 +10,39 @@
 
 #include "CaptureModel.h"
 
+#define NCHANNELS 2
 
-CaptureModel::CaptureModel()
+CaptureModel::CaptureModel() :
+activeSound(NCHANNELS, 0)
 {
-    deviceManager.initialise(2, 2, nullptr, true);
-    setAudioChannels(2, 2);
+    String audioError = deviceManager.initialise (NCHANNELS, NCHANNELS, nullptr, true);
+    jassert (audioError.isEmpty());
+    
+    deviceManager.addAudioCallback (this);
+    activeSound.clear();
 }
 
 CaptureModel::~CaptureModel()
 {
-    shutdownAudio();
+    deviceManager.removeAudioCallback(this);
+    deviceManager.closeAudioDevice();
 }
 
-void CaptureModel::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
+void CaptureModel::audioDeviceIOCallback (const float** inputChannelData, int numInputChannels,
+                            float** outputChannelData, int numOutputChannels,
+                            int numSamples)
 {
-    
+    for (int i = 0; i < numOutputChannels; ++i)
+        if (outputChannelData[i] != nullptr)
+            FloatVectorOperations::clear (outputChannelData[i], numSamples);
 }
 
-void CaptureModel::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
+void CaptureModel::audioDeviceAboutToStart(AudioIODevice* device)
 {
-    bufferToFill.clearActiveBufferRegion();
+    sampleRate = device->getCurrentSampleRate();
 }
 
-void CaptureModel::releaseResources()
+void CaptureModel::audioDeviceStopped()
 {
-    
+    sampleRate = 0;
 }

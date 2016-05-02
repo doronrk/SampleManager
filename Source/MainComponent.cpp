@@ -20,5 +20,5 @@ void MainContentComponent::paint (Graphics& g)
 
 void MainContentComponent::resized() 
 {
-    captureView.setBoundsRelative(0.5, 0.0, 1.0, 0.5);
+    captureView.setBoundsRelative(0.0, 0.0, 1.0, 1.0);
 }

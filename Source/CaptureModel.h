@@ -13,14 +13,23 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class CaptureModel: public AudioAppComponent
+class CaptureModel: public AudioIODeviceCallback
 {
 public:
     CaptureModel();
     ~CaptureModel();
-    void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override;
-    void getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) override;
-    void releaseResources() override;
+    void audioDeviceIOCallback (const float** inputChannelData, int numInputChannels,
+                                float** outputChannelData, int numOutputChannels,
+                                int numSamples) override;
+    void audioDeviceAboutToStart (AudioIODevice* device) override;
+    void audioDeviceStopped() override;
+
+
+    
+    AudioDeviceManager deviceManager;
+private:
+    AudioSampleBuffer activeSound;
+    double sampleRate;
 };
 
 

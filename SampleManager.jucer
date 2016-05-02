@@ -22,6 +22,7 @@
         <FILE id="pYtOpG" name="SearchModel.h" compile="0" resource="0" file="Source/SearchModel.h"/>
         <FILE id="LL9WsZ" name="ManageModel.cpp" compile="1" resource="0" file="Source/ManageModel.cpp"/>
       </GROUP>
+      <FILE id="HsQjeO" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="NMKB80" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
       <FILE id="aks3Fv" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>

@@ -1,8 +1,10 @@
 #include "MainComponent.h"
 
 
-MainContentComponent::MainContentComponent()
+MainContentComponent::MainContentComponent() :
+captureView(captureModel)
 {
+    addAndMakeVisible(captureView);
     setSize (800, 600);
 }
 
@@ -13,12 +15,10 @@ MainContentComponent::~MainContentComponent()
 
 void MainContentComponent::paint (Graphics& g)
 {
-    g.fillAll (Colours::black);
+    //g.fillAll (Colours::black);
 }
 
 void MainContentComponent::resized() 
 {
-    // This is called when the MainContentComponent is resized.
-    // If you add any child components, this is where you should
-    // update their positions.
+    captureView.setBoundsRelative(0.5, 0.0, 1.0, 0.5);
 }

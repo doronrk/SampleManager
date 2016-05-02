@@ -11,7 +11,17 @@
 #ifndef CAPTUREVIEW_H_INCLUDED
 #define CAPTUREVIEW_H_INCLUDED
 
+#include "../JuceLibraryCode/JuceHeader.h"
+#include "CaptureModel.h"
 
+class CaptureView : public Component
+{
+public:
+    CaptureView(CaptureModel &captureModel);
+    void paint (Graphics& g) override;
+private:
+    AudioDeviceSelectorComponent audioDeviceSelector;
+};
 
 
 

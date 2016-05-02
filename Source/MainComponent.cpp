@@ -3,45 +3,19 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class MainContentComponent   : public AudioAppComponent
+class MainContentComponent : public Component
 {
 public:
     //==============================================================================
     MainContentComponent()
     {
         setSize (800, 600);
-        setAudioChannels (2, 2);
     }
 
     ~MainContentComponent()
     {
-        shutdownAudio();
     }
 
-    //==============================================================================
-    void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override
-    {
-        // This function will be called when the audio device is started, or when
-        // its settings (i.e. sample rate, block size, etc) are changed.
-
-        // You can use this function to initialise any resources you might need,
-        // but be careful - it will be called on the audio thread, not the GUI thread.
-
-        // For more details, see the help for AudioProcessor::prepareToPlay()
-    }
-
-    void getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) override
-    {
-        bufferToFill.clearActiveBufferRegion();
-    }
-
-    void releaseResources() override
-    {
-        // This will be called when the audio device stops, or when it is being
-        // restarted due to a setting change.
-
-        // For more details, see the help for AudioProcessor::releaseResources()
-    }
 
     //==============================================================================
     void paint (Graphics& g) override

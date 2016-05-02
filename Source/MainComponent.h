@@ -13,6 +13,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "CaptureView.h"
+#include "ManageView.h"
 
 class MainContentComponent : public Component
 {
@@ -27,6 +28,7 @@ public:
 private:
     CaptureModel captureModel;
     CaptureView captureView;
+    ManageView manageView;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 };

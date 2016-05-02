@@ -13,22 +13,36 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+#define NCHANNELS 2
+#define THUMB_RES 512
+#define THUMB_CACHE_CAP 10
+
 class CaptureModel: public AudioIODeviceCallback
 {
 public:
     CaptureModel();
     ~CaptureModel();
+    void startRecord();
+    void stopRecord();
+    
+    // AudioIODeviceCallback functions
     void audioDeviceIOCallback (const float** inputChannelData, int numInputChannels,
                                 float** outputChannelData, int numOutputChannels,
                                 int numSamples) override;
     void audioDeviceAboutToStart (AudioIODevice* device) override;
     void audioDeviceStopped() override;
 
-
-    
+    // public fields for CaptureView, TODO: make a friend class?
     AudioDeviceManager deviceManager;
+    AudioThumbnail &getThumbnail();
+
 private:
-    AudioSampleBuffer activeSound;
+    bool isRecording();
+    
+    AudioFormatManager formatManager;
+    AudioThumbnailCache thumbnailCache;
+    AudioThumbnail thumbnail;
+    long nextSampleNum;
     double sampleRate;
 };
 

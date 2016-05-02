@@ -2,9 +2,11 @@
 
 
 MainContentComponent::MainContentComponent() :
-captureView(captureModel)
+captureView(captureModel),
+manageView(captureModel.getThumbnail())
 {
     addAndMakeVisible(captureView);
+    addAndMakeVisible(manageView);
     setSize (800, 600);
 }
 
@@ -20,5 +22,7 @@ void MainContentComponent::paint (Graphics& g)
 
 void MainContentComponent::resized() 
 {
-    captureView.setBoundsRelative(0.0, 0.0, 1.0, 1.0);
+    float horizSplit = 0.5;
+    manageView.setBoundsRelative(0.0, 0.0, 1.0, horizSplit);
+    captureView.setBoundsRelative(0.0, 1.0 - horizSplit, 1.0, 1.0 - horizSplit);
 }

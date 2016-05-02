@@ -12,6 +12,9 @@
         <FILE id="bdC7hW" name="ManageView.h" compile="0" resource="0" file="Source/ManageView.h"/>
         <FILE id="gr5ZCh" name="SearchView.cpp" compile="1" resource="0" file="Source/SearchView.cpp"/>
         <FILE id="o1fuhm" name="SearchView.h" compile="0" resource="0" file="Source/SearchView.h"/>
+        <FILE id="y4bucV" name="ThumbnailView.cpp" compile="1" resource="0"
+              file="Source/ThumbnailView.cpp"/>
+        <FILE id="nnOgbt" name="ThumbnailView.h" compile="0" resource="0" file="Source/ThumbnailView.h"/>
       </GROUP>
       <GROUP id="{78DCBD57-959B-2385-487A-3FD7D63061F2}" name="Model">
         <FILE id="ikLW4X" name="ManageModel.h" compile="0" resource="0" file="Source/ManageModel.h"/>

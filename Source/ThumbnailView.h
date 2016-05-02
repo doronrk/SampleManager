@@ -1,34 +1,34 @@
 /*
   ==============================================================================
 
-    CaptureView.h
-    Created: 2 May 2016 1:22:04pm
+    ThumbnailView.h
+    Created: 2 May 2016 4:18:16pm
     Author:  Doron Roberts-Kedes
 
   ==============================================================================
 */
 
-#ifndef CAPTUREVIEW_H_INCLUDED
-#define CAPTUREVIEW_H_INCLUDED
+#ifndef THUMBNAILVIEW_H_INCLUDED
+#define THUMBNAILVIEW_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "CaptureModel.h"
 
-class CaptureView :
+class ThumbnailView :
     public Component,
     private ChangeListener
 {
 public:
-    CaptureView(CaptureModel &captureModel);
+    ThumbnailView(AudioThumbnail &thumbnail);
     void paint (Graphics& g) override;
     void resized() override;
+    
 private:
     void changeListenerCallback(ChangeBroadcaster *source) override;
     
-    CaptureModel &captureModel;
-    AudioDeviceSelectorComponent deviceSelector;
+    AudioThumbnail &thumbnail;
+    bool displayFullThumb;
 };
 
 
 
-#endif  // CAPTUREVIEW_H_INCLUDED
+#endif  // THUMBNAILVIEW_H_INCLUDED

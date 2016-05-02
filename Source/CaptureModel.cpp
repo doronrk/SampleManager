@@ -21,7 +21,8 @@ sampleRate(0)
     String audioError = deviceManager.initialise (NCHANNELS, NCHANNELS, nullptr, true);
     jassert (audioError.isEmpty());
     
-    deviceManager.addAudioCallback (this);
+    deviceManager.addAudioCallback(this);
+    thumbnail.reset(NCHANNELS, sampleRate);
 }
 
 CaptureModel::~CaptureModel()
@@ -44,21 +45,18 @@ void CaptureModel::audioDeviceIOCallback (const float** inData, int numInputChan
                             float** outData, int numOutputChannels,
                             int numSamples)
 {
-    /*
     if (isRecording()) {
         int nChannels = thumbnail.getNumChannels();
-        for (int ch = 0; ch < nChannels; ch++) {
-            const AudioSampleBuffer buffer(const_cast<float**> (inData), nChannels, numSamples);
-            thumbnail.addBlock(nextSampleNum, buffer, 0, numSamples);
-            nextSampleNum += numSamples;
-        }
+        const AudioSampleBuffer buffer(const_cast<float**> (inData), nChannels, numSamples);
+        thumbnail.addBlock(nextSampleNum, buffer, 0, numSamples);
+        nextSampleNum += numSamples;
     }
     
     for (int i = 0; i < numOutputChannels; ++i) {
         if (outData[i] != nullptr) {
             FloatVectorOperations::clear (outData[i], numSamples);
         }
-    }*/
+    }
 }
 
 void CaptureModel::audioDeviceAboutToStart(AudioIODevice* device)
@@ -75,8 +73,6 @@ AudioThumbnail &CaptureModel::getThumbnail()
 {
     return thumbnail;
 }
-
-
 
 bool CaptureModel::isRecording()
 {

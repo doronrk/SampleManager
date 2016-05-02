@@ -5,6 +5,23 @@
               jucerVersion="4.2.1">
   <MAINGROUP id="pOAarQ" name="SampleManager">
     <GROUP id="{69632817-788A-1D81-A92F-2235910FA23A}" name="Source">
+      <GROUP id="{4638EA35-7187-8080-CC92-F0975ADDE3C9}" name="View">
+        <FILE id="WX4UVp" name="CaptureView.cpp" compile="1" resource="0" file="Source/CaptureView.cpp"/>
+        <FILE id="lvNYdG" name="CaptureView.h" compile="0" resource="0" file="Source/CaptureView.h"/>
+        <FILE id="RlQtgF" name="ManageView.cpp" compile="1" resource="0" file="Source/ManageView.cpp"/>
+        <FILE id="bdC7hW" name="ManageView.h" compile="0" resource="0" file="Source/ManageView.h"/>
+        <FILE id="gr5ZCh" name="SearchView.cpp" compile="1" resource="0" file="Source/SearchView.cpp"/>
+        <FILE id="o1fuhm" name="SearchView.h" compile="0" resource="0" file="Source/SearchView.h"/>
+      </GROUP>
+      <GROUP id="{78DCBD57-959B-2385-487A-3FD7D63061F2}" name="Model">
+        <FILE id="ikLW4X" name="ManageModel.h" compile="0" resource="0" file="Source/ManageModel.h"/>
+        <FILE id="lY9TYa" name="CaptureModel.cpp" compile="1" resource="0"
+              file="Source/CaptureModel.cpp"/>
+        <FILE id="LiWaFp" name="CaptureModel.h" compile="0" resource="0" file="Source/CaptureModel.h"/>
+        <FILE id="MCug6P" name="SearchModel.cpp" compile="1" resource="0" file="Source/SearchModel.cpp"/>
+        <FILE id="pYtOpG" name="SearchModel.h" compile="0" resource="0" file="Source/SearchModel.h"/>
+        <FILE id="LL9WsZ" name="ManageModel.cpp" compile="1" resource="0" file="Source/ManageModel.cpp"/>
+      </GROUP>
       <FILE id="NMKB80" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
       <FILE id="aks3Fv" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>

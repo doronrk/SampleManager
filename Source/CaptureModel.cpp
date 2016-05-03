@@ -35,6 +35,10 @@ CaptureModel::~CaptureModel()
 void CaptureModel::startRecording()
 {
     stopRecording();
+    File support(File::getSpecialLocation(File::userApplicationDataDirectory)
+                 .getChildFile("SampleManager"));
+    jassert(support.exists());
+    support.getNonexistentChildFile("temp-capture-record", ".wav");
     recording = true;
 }
 

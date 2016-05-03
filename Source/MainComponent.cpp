@@ -12,6 +12,7 @@ manageView(captureModel.getThumbnail())
 
 MainContentComponent::~MainContentComponent()
 {
+    
 }
 
 

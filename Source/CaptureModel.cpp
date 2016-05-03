@@ -16,7 +16,8 @@ CaptureModel::CaptureModel() :
 thumbnailCache(THUMB_CACHE_CAP),
 thumbnail(THUMB_RES, formatManager, thumbnailCache),
 nextSampleNum(0),
-sampleRate(0)
+sampleRate(0),
+recording(false)
 {
     String audioError = deviceManager.initialise (NCHANNELS, NCHANNELS, nullptr, true);
     jassert (audioError.isEmpty());
@@ -31,15 +32,22 @@ CaptureModel::~CaptureModel()
     deviceManager.closeAudioDevice();
 }
 
-void CaptureModel::startRecord()
+void CaptureModel::startRecording()
 {
-    
+    stopRecording();
+    recording = true;
 }
 
-void CaptureModel::stopRecord()
+void CaptureModel::stopRecording()
 {
-    
+    recording = false;
 }
+
+bool CaptureModel::isRecording()
+{
+    return recording;
+}
+
 
 void CaptureModel::audioDeviceIOCallback (const float** inData, int numInputChannels,
                             float** outData, int numOutputChannels,
@@ -72,10 +80,5 @@ void CaptureModel::audioDeviceStopped()
 AudioThumbnail &CaptureModel::getThumbnail()
 {
     return thumbnail;
-}
-
-bool CaptureModel::isRecording()
-{
-    return true;
 }
 

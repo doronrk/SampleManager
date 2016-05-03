@@ -15,6 +15,9 @@ captureModel(captureModel),
 deviceSelector(captureModel.deviceManager, 0, 2, 0, 2, false, false, true, true)
 {
     addAndMakeVisible(deviceSelector);
+    addAndMakeVisible(recordButton);
+    recordButton.setButtonText("record");
+    recordButton.addListener(this);
 }
 
 void CaptureView::paint (Graphics& g) {
@@ -22,9 +25,28 @@ void CaptureView::paint (Graphics& g) {
 }
 
 void CaptureView::resized() {
-    deviceSelector.setBoundsRelative(0.0, 0.0, 1.0, 1.0);
+    float vertSplit = .2;
+    recordButton.setBoundsRelative(0.0, 0.0, vertSplit, 1.0);
+    deviceSelector.setBoundsRelative(vertSplit, 0.0, 1.0 - vertSplit, 1.0);
 }
 
-void CaptureView::changeListenerCallback(ChangeBroadcaster *source)
-{
+void CaptureView::buttonClicked(Button *button) {
+    if (button == &recordButton) {
+        if (captureModel.isRecording()) {
+            stopRecording();
+        } else {
+            startRecording();
+        }
+    }
+}
+
+void CaptureView::startRecording() {
+    captureModel.startRecording();
+    recordButton.setButtonText("stop");
+}
+
+void CaptureView::stopRecording() {
+    captureModel.stopRecording();
+    recordButton.setButtonText("record");
+
 }

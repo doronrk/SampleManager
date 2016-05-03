@@ -22,8 +22,9 @@ class CaptureModel: public AudioIODeviceCallback
 public:
     CaptureModel();
     ~CaptureModel();
-    void startRecord();
-    void stopRecord();
+    void startRecording();
+    void stopRecording();
+    bool isRecording();
     
     // AudioIODeviceCallback functions
     void audioDeviceIOCallback (const float** inputChannelData, int numInputChannels,
@@ -37,13 +38,13 @@ public:
     AudioThumbnail &getThumbnail();
 
 private:
-    bool isRecording();
     
     AudioFormatManager formatManager;
     AudioThumbnailCache thumbnailCache;
     AudioThumbnail thumbnail;
     long nextSampleNum;
     double sampleRate;
+    bool recording;
 };
 
 

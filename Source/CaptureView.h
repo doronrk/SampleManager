@@ -16,17 +16,21 @@
 
 class CaptureView :
     public Component,
-    private ChangeListener
+    private Button::Listener
 {
 public:
     CaptureView(CaptureModel &captureModel);
     void paint (Graphics& g) override;
     void resized() override;
-private:
-    void changeListenerCallback(ChangeBroadcaster *source) override;
     
+private:
     CaptureModel &captureModel;
     AudioDeviceSelectorComponent deviceSelector;
+    TextButton recordButton;
+    
+    void buttonClicked(Button *button) override;
+    void startRecording();
+    void stopRecording();
 };
 
 

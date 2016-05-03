@@ -48,7 +48,6 @@ bool CaptureModel::isRecording()
     return recording;
 }
 
-
 void CaptureModel::audioDeviceIOCallback (const float** inData, int numInputChannels,
                             float** outData, int numOutputChannels,
                             int numSamples)

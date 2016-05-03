@@ -17,6 +17,11 @@ ThumbnailView::ThumbnailView(AudioThumbnail &thumbnail) :
     thumbnail.addChangeListener(this);
 }
 
+ThumbnailView::~ThumbnailView()
+{
+    thumbnail.removeChangeListener(this);
+}
+
 void ThumbnailView::paint (Graphics& g)
 {
     g.fillAll (Colours::darkgrey);

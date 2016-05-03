@@ -19,6 +19,7 @@ class ThumbnailView :
 {
 public:
     ThumbnailView(AudioThumbnail &thumbnail);
+    ~ThumbnailView();
     void paint (Graphics& g) override;
     void resized() override;
     

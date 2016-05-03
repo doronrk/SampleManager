@@ -5,6 +5,10 @@
               jucerVersion="4.2.1">
   <MAINGROUP id="pOAarQ" name="SampleManager">
     <GROUP id="{69632817-788A-1D81-A92F-2235910FA23A}" name="Source">
+      <GROUP id="{DA8B1C58-1E44-7B25-F221-7227F436CA05}" name="DAO">
+        <FILE id="nMYY7b" name="DAO.cpp" compile="1" resource="0" file="Source/DAO.cpp"/>
+        <FILE id="syc6yb" name="DAO.h" compile="0" resource="0" file="Source/DAO.h"/>
+      </GROUP>
       <GROUP id="{4638EA35-7187-8080-CC92-F0975ADDE3C9}" name="View">
         <FILE id="WX4UVp" name="CaptureView.cpp" compile="1" resource="0" file="Source/CaptureView.cpp"/>
         <FILE id="lvNYdG" name="CaptureView.h" compile="0" resource="0" file="Source/CaptureView.h"/>

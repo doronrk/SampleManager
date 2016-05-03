@@ -12,6 +12,7 @@
 #define CAPTUREMODEL_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "DAO.h"
 
 #define NCHANNELS 2
 #define THUMB_RES 512

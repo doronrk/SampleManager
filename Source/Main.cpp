@@ -10,6 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainComponent.h"
+#include "DAO.h"
 
 //==============================================================================
 class SampleManagerApplication  : public JUCEApplication
@@ -25,13 +26,6 @@ public:
     //==============================================================================
     void initialise (const String& commandLine) override
     {
-        // This method is where you should put your application's initialisation code..
-        File support(File::getSpecialLocation(File::userApplicationDataDirectory)
-                     .getChildFile("SampleManager"));
-        if (!support.exists()) {
-            std::cout << "support folder doesn't exist yet" << std::endl;
-            support.createDirectory();
-        }
         mainWindow = new MainWindow (getApplicationName());
     }
 

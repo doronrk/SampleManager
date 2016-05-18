@@ -11,19 +11,14 @@
 #include "CaptureModel.h"
 
 
-
 CaptureModel::CaptureModel() :
-thumbnailCache(THUMB_CACHE_CAP),
-thumbnail(THUMB_RES, formatManager, thumbnailCache),
 nextSampleNum(0),
 sampleRate(0),
 recording(false)
 {
-    String audioError = deviceManager.initialise (NCHANNELS, NCHANNELS, nullptr, true);
+    String audioError = deviceManager.initialise(NCHANNELS, NCHANNELS, nullptr, true);
     jassert (audioError.isEmpty());
-    
     deviceManager.addAudioCallback(this);
-    thumbnail.reset(NCHANNELS, sampleRate);
 }
 
 CaptureModel::~CaptureModel()
@@ -36,6 +31,7 @@ void CaptureModel::startRecording()
 {
     stopRecording();
     File captureFile = DAO::getAppSupportDir();
+    sound.prepareRecord(numInputChannels, sampleRate);
     recording = true;
 }
 
@@ -49,20 +45,20 @@ bool CaptureModel::isRecording()
     return recording;
 }
 
-void CaptureModel::audioDeviceIOCallback (const float** inData, int numInputChannels,
-                            float** outData, int numOutputChannels,
-                            int numSamples)
+void CaptureModel::audioDeviceIOCallback (const float** inData,
+                                          int nInChannels,
+                                          float** outData,
+                                          int nOutChannels,
+                                          int nSamples)
 {
+    // TODO: assert matching nInChannels
     if (isRecording()) {
-        int nChannels = thumbnail.getNumChannels();
-        const AudioSampleBuffer buffer(const_cast<float**> (inData), nChannels, numSamples);
-        thumbnail.addBlock(nextSampleNum, buffer, 0, numSamples);
-        nextSampleNum += numSamples;
+        sound.appendAudio(inData, numInputChannels, nSamples);
     }
     
-    for (int i = 0; i < numOutputChannels; ++i) {
+    for (int i = 0; i < nOutChannels; ++i) {
         if (outData[i] != nullptr) {
-            FloatVectorOperations::clear (outData[i], numSamples);
+            FloatVectorOperations::clear (outData[i], nSamples);
         }
     }
 }
@@ -70,15 +66,13 @@ void CaptureModel::audioDeviceIOCallback (const float** inData, int numInputChan
 void CaptureModel::audioDeviceAboutToStart(AudioIODevice* device)
 {
     sampleRate = device->getCurrentSampleRate();
+    BigInteger activeIn = device->getActiveInputChannels();
+    numInputChannels = activeIn.countNumberOfSetBits();
 }
 
 void CaptureModel::audioDeviceStopped()
 {
     sampleRate = 0;
-}
-
-AudioThumbnail &CaptureModel::getThumbnail()
-{
-    return thumbnail;
+    numInputChannels = 0;
 }
 

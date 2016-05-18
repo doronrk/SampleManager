@@ -3,7 +3,7 @@
 
 MainContentComponent::MainContentComponent() :
 captureView(captureModel),
-manageView(captureModel.getThumbnail())
+manageView(manageModel)
 {
     addAndMakeVisible(captureView);
     addAndMakeVisible(manageView);

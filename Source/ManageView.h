@@ -12,16 +12,18 @@
 #define MANAGEVIEW_H_INCLUDED
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "ThumbnailView.h"
+#include "ManageModel.h"
 
 class ManageView:
     public Component
 {
 public:
-    ManageView(AudioThumbnail &captureThumb);
+    ManageView(ManageModel& manageModel);
     void paint (Graphics& g) override;
     void resized() override;
 private:
-    ThumbnailView thumbView;
+    ManageModel& manageModel;
+    ThumbnailView thumbnailView;
 };
 
 #endif  // MANAGEVIEW_H_INCLUDED

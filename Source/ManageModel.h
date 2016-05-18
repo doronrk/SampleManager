@@ -11,7 +11,17 @@
 #ifndef MANAGEMODEL_H_INCLUDED
 #define MANAGEMODEL_H_INCLUDED
 
+#include <memory>
+#include "Sound.h"
 
+class ManageModel {
+public:
+    bool hasActiveSound() const;
+    const std::shared_ptr<Sound> getActiveSound() const;
+    void setActiveSound(Sound* sound);
+private:
+    std::shared_ptr<Sound> activeSound;
+};
 
 
 

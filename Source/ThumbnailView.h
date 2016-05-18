@@ -12,21 +12,23 @@
 #define THUMBNAILVIEW_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include <memory>
 
 class ThumbnailView :
     public Component,
     private ChangeListener
 {
 public:
-    ThumbnailView(AudioThumbnail &thumbnail);
+    ThumbnailView();
     ~ThumbnailView();
+    void setThumbnail(AudioThumbnail *thumb);
     void paint (Graphics& g) override;
     void resized() override;
     
 private:
     void changeListenerCallback(ChangeBroadcaster *source) override;
-    
-    AudioThumbnail &thumbnail;
+    bool hasThumbnail();
+    std::shared_ptr<AudioThumbnail> thumbnail;
     bool displayFullThumb;
 };
 

@@ -10,10 +10,12 @@
 
 #include "ManageView.h"
 
-ManageView::ManageView(AudioThumbnail &captureThumb) :
-    thumbView(captureThumb)
+ManageView::ManageView(ManageModel& manageModel) :
+    manageModel(manageModel)
 {
-    addAndMakeVisible(thumbView);
+    addAndMakeVisible(thumbnailView);
+    const std::shared_ptr<Sound> sound = manageModel.getActiveSound();
+    thumbnailView.setThumbnail(sound->getThumbnail());
 }
 
 void ManageView::paint (Graphics& g) {
@@ -21,5 +23,4 @@ void ManageView::paint (Graphics& g) {
 }
 
 void ManageView::resized() {
-    thumbView.setBoundsRelative(0.0, 0.0, 1.0, 1.0);
 }

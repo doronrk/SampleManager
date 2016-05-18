@@ -27,6 +27,8 @@ public:
     
 private:
     CaptureModel captureModel;
+    ManageModel manageModel;
+    
     CaptureView captureView;
     ManageView manageView;
     

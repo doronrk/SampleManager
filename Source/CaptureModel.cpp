@@ -76,3 +76,8 @@ void CaptureModel::audioDeviceStopped()
     numInputChannels = 0;
 }
 
+Sound *CaptureModel::getSound() {
+    return &sound;
+}
+
+

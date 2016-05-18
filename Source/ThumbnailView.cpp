@@ -25,7 +25,7 @@ void ThumbnailView::setThumbnail(AudioThumbnail *thumb) {
     if (hasThumbnail()) {
         thumbnail->removeChangeListener(this);
     }
-    thumbnail.reset(thumb);
+    thumbnail = thumb;
     thumbnail->addChangeListener(this);
 }
 

@@ -14,10 +14,11 @@ bool ManageModel::hasActiveSound() const {
     return activeSound != nullptr;
 }
 
-const std::shared_ptr<Sound> ManageModel::getActiveSound() const {
+Sound *ManageModel::getActiveSound() const {
     return activeSound;
 }
 
 void ManageModel::setActiveSound(Sound* sound) {
-    activeSound.reset(sound);
+    activeSound = sound;
+    sendChangeMessage();
 }

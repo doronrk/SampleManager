@@ -5,6 +5,7 @@ MainContentComponent::MainContentComponent() :
 captureView(captureModel),
 manageView(manageModel)
 {
+    manageModel.setActiveSound(captureModel.getSound());
     addAndMakeVisible(captureView);
     addAndMakeVisible(manageView);
     setSize (800, 800);

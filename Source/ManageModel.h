@@ -11,16 +11,15 @@
 #ifndef MANAGEMODEL_H_INCLUDED
 #define MANAGEMODEL_H_INCLUDED
 
-#include <memory>
 #include "Sound.h"
 
-class ManageModel {
+class ManageModel : public ChangeBroadcaster {
 public:
     bool hasActiveSound() const;
-    const std::shared_ptr<Sound> getActiveSound() const;
+    Sound *getActiveSound() const;
     void setActiveSound(Sound* sound);
 private:
-    std::shared_ptr<Sound> activeSound;
+    Sound *activeSound;
 };
 
 

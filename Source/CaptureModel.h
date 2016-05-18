@@ -34,6 +34,7 @@ public:
     void audioDeviceStopped() override;
 
     AudioDeviceManager deviceManager;
+    Sound *getSound();
 
 private:
     AudioFormatManager formatManager;

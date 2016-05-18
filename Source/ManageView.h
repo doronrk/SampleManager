@@ -15,7 +15,8 @@
 #include "ManageModel.h"
 
 class ManageView:
-    public Component
+    public Component,
+    private ChangeListener
 {
 public:
     ManageView(ManageModel& manageModel);
@@ -24,6 +25,8 @@ public:
 private:
     ManageModel& manageModel;
     ThumbnailView thumbnailView;
+    
+    void changeListenerCallback(ChangeBroadcaster *source) override;
 };
 
 #endif  // MANAGEVIEW_H_INCLUDED

@@ -28,10 +28,10 @@ void Sound::prepareRecord(int numChannels, double sampleRate) {
 
 void Sound::appendAudio(const float **data, int numChannels, int numSamples) {
     // TODO: assert numChannels = audiodata.size()
-    
+
     // update the thumbnail
     const AudioSampleBuffer buffer(const_cast<float**> (data), numChannels, numSamples);
-    thumbnail.addBlock(audiodata.size(), buffer, 0, numSamples);
+    thumbnail.addBlock(audiodata[0].size(), buffer, 0, numSamples);
     
     // update the audio data
     audiodataLock.lock();

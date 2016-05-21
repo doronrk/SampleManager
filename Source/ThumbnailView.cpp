@@ -11,6 +11,7 @@
 #include "ThumbnailView.h"
 
 ThumbnailView::ThumbnailView() :
+    thumbnail(nullptr),
     displayFullThumb(false)
 {}
 
@@ -34,7 +35,8 @@ void ThumbnailView::paint (Graphics& g)
 {
     g.fillAll (Colours::darkgrey);
     g.setColour (Colours::lightgrey);
-    if (hasThumbnail() && thumbnail->getTotalLength() > 0.0) {
+    
+    if (hasThumbnail()) {
         const double endTime = displayFullThumb ? thumbnail->getTotalLength()
             : jmax (30.0, thumbnail->getTotalLength());
         
@@ -51,7 +53,7 @@ void ThumbnailView::resized() {
 }
 
 bool ThumbnailView::hasThumbnail() {
-    return thumbnail != nullptr;
+    return thumbnail != nullptr && thumbnail->getTotalLength() > 0.0;
 }
 
 

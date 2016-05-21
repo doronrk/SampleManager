@@ -10,6 +10,10 @@
 
 #include "ManageModel.h"
 
+ManageModel::ManageModel() :
+    activeSound(nullptr)
+{}
+
 bool ManageModel::hasActiveSound() const {
     return activeSound != nullptr;
 }

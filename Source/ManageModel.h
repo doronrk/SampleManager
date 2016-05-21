@@ -15,6 +15,7 @@
 
 class ManageModel : public ChangeBroadcaster {
 public:
+    ManageModel();
     bool hasActiveSound() const;
     Sound *getActiveSound() const;
     void setActiveSound(Sound* sound);

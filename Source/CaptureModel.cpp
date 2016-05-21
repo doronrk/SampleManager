@@ -33,11 +33,13 @@ void CaptureModel::startRecording()
     File captureFile = DAO::getAppSupportDir();
     sound.prepareRecord(numInputChannels, sampleRate);
     recording = true;
+    sendChangeMessage();
 }
 
 void CaptureModel::stopRecording()
 {
     recording = false;
+    sendChangeMessage();
 }
 
 bool CaptureModel::isRecording()

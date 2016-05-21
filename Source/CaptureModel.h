@@ -17,7 +17,8 @@
 
 #define NCHANNELS 2
 
-class CaptureModel: public AudioIODeviceCallback
+class CaptureModel: public AudioIODeviceCallback,
+    public ChangeBroadcaster
 {
 public:
     CaptureModel();

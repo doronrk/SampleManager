@@ -14,6 +14,7 @@ CaptureView::CaptureView(CaptureModel &captureModel) :
 captureModel(captureModel),
 deviceSelector(captureModel.deviceManager, 0, 2, 0, 2, false, false, true, true)
 {
+    captureModel.addChangeListener(this);
     addAndMakeVisible(deviceSelector);
     addAndMakeVisible(recordButton);
     recordButton.setButtonText("record");
@@ -33,20 +34,22 @@ void CaptureView::resized() {
 void CaptureView::buttonClicked(Button *button) {
     if (button == &recordButton) {
         if (captureModel.isRecording()) {
-            stopRecording();
+            captureModel.stopRecording();
         } else {
-            startRecording();
+            captureModel.startRecording();
         }
     }
 }
 
-void CaptureView::startRecording() {
-    captureModel.startRecording();
-    recordButton.setButtonText("stop");
+void CaptureView::updateRecordState(bool recording) {
+    std::string text = recording ? "stop" : "record";
+    recordButton.setButtonText(text);
 }
 
-void CaptureView::stopRecording() {
-    captureModel.stopRecording();
-    recordButton.setButtonText("record");
 
+void CaptureView::changeListenerCallback(ChangeBroadcaster *source) {
+    if (source == &captureModel) {
+        updateRecordState(captureModel.isRecording());
+    }
 }
+

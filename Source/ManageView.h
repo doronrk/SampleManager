@@ -16,7 +16,8 @@
 
 class ManageView:
     public Component,
-    private ChangeListener
+    private ChangeListener,
+    private TextEditor::Listener
 {
 public:
     ManageView(ManageModel& manageModel);
@@ -24,9 +25,11 @@ public:
     void resized() override;
 private:
     ManageModel& manageModel;
+    TextEditor tagEditor;
     ThumbnailView thumbnailView;
     
     void changeListenerCallback(ChangeBroadcaster *source) override;
+    void textEditorTextChanged(TextEditor &) override;
 };
 
 #endif  // MANAGEVIEW_H_INCLUDED

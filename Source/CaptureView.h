@@ -16,7 +16,8 @@
 
 class CaptureView :
     public Component,
-    private Button::Listener
+    private Button::Listener,
+    private ChangeListener
 {
 public:
     CaptureView(CaptureModel &captureModel);
@@ -29,8 +30,9 @@ private:
     TextButton recordButton;
     
     void buttonClicked(Button *button) override;
-    void startRecording();
-    void stopRecording();
+    void updateRecordState(bool state);
+    
+    void changeListenerCallback(ChangeBroadcaster *source) override;
 };
 
 

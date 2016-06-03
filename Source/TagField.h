@@ -1,37 +1,33 @@
 /*
   ==============================================================================
 
-    ThumbnailView.h
-    Created: 2 May 2016 4:18:16pm
+    TagField.h
+    Created: 2 Jun 2016 2:22:52pm
     Author:  Doron Roberts-Kedes
 
   ==============================================================================
 */
 
-#ifndef THUMBNAILVIEW_H_INCLUDED
-#define THUMBNAILVIEW_H_INCLUDED
+#ifndef TAGFIELD_H_INCLUDED
+#define TAGFIELD_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "TagCollection.h"
 
-class ThumbnailView :
+class TagField:
     public Component,
     private ChangeListener
 {
 public:
-    ThumbnailView();
-    ~ThumbnailView();
     void paint (Graphics& g) override;
     void resized() override;
-    void setThumbnail(AudioThumbnail *thumb);
-    
+    void setTags(TagCollection *newTags);
     
 private:
     void changeListenerCallback(ChangeBroadcaster *source) override;
-    bool hasThumbnail();
-    AudioThumbnail *thumbnail;
-    bool displayFullThumb;
+    TagCollection *tags;
 };
 
 
 
-#endif  // THUMBNAILVIEW_H_INCLUDED
+#endif  // TAGFIELD_H_INCLUDED

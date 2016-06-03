@@ -15,21 +15,21 @@
 #include <string>
 #include <mutex>
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "TagCollection.h"
 
 class Sound {
 public:
     Sound();
     void prepareRecord(int numChannels, double sampleRate);
     void appendAudio(const float **data, int numChannels, int numSamples);
-    void addTag(const std::string& tag);
-    const std::vector<std::string>& getTags() const;
+    TagCollection* getTagCollection();
     const std::vector<std::vector<float>>& getAudiodata() const;
     AudioThumbnail *getThumbnail();
     
 private:
     std::mutex audiodataLock;
     std::vector<std::vector<float>> audiodata;
-    std::vector<std::string> tags;
+    TagCollection tags;
     std::string filepath;
     AudioFormatManager manager;
     AudioThumbnailCache cache;

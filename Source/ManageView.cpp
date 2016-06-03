@@ -13,6 +13,7 @@
 ManageView::ManageView(ManageModel& manageModel) :
     manageModel(manageModel)
 {
+    addAndMakeVisible(tagField);
     addAndMakeVisible(thumbnailView);
     addAndMakeVisible(tagEditor);
     manageModel.addChangeListener(this);
@@ -23,9 +24,12 @@ void ManageView::paint (Graphics& g) {
 }
 
 void ManageView::resized() {
-    float horSplit = 0.8;
-    thumbnailView.setBoundsRelative(0.0, 0.0, 1.0, horSplit);
-    tagEditor.setBoundsRelative(0.0, horSplit, 1.0, 1.0 - horSplit);
+    float thumbnailHeight = 0.5;
+    thumbnailView.setBoundsRelative(0.0, 0.0, 1.0, thumbnailHeight);
+    float tagFieldHeight = .25;
+    tagField.setBoundsRelative(0.0, thumbnailHeight, 1.0, tagFieldHeight);
+    float tagEditorHeight = 1.0 - thumbnailHeight - tagFieldHeight;
+    tagEditor.setBoundsRelative(0.0, 1.0 - tagEditorHeight, 1.0, tagEditorHeight);
 }
 
 void ManageView::changeListenerCallback(ChangeBroadcaster *source) {
@@ -33,14 +37,9 @@ void ManageView::changeListenerCallback(ChangeBroadcaster *source) {
         // TODO: only do this when sound changes, move to helper
         Sound *sound = manageModel.getActiveSound();
         AudioThumbnail *thumbnail = sound->getThumbnail();
-        if (thumbnail == nullptr) {
-            std::cout << "thumbnail is null" << std::endl;
-        } else {
-            std::cout << "thumbnail not null" << std::endl;
-        }
-        double length = thumbnail->getTotalLength();
-        std::cout << "length of thumbnail: " << length << std::endl;
-        thumbnailView.setThumbnail(sound->getThumbnail());
+        thumbnailView.setThumbnail(thumbnail);
+        TagCollection *tags = sound->getTagCollection();
+        tagField.setTags(tags);
     }
 }
 

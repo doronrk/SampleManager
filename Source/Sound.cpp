@@ -45,12 +45,8 @@ void Sound::appendAudio(const float **data, int numChannels, int numSamples) {
     audiodataLock.unlock();
 }
 
-void Sound::addTag(const std::string& tag) {
-    tags.push_back(tag);
-}
-
-const std::vector<std::string>& Sound::getTags() const {
-    return tags;
+TagCollection *Sound::getTagCollection() {
+    return &tags;
 }
 
 const std::vector<std::vector<float>>& Sound::getAudiodata() const {

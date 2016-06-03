@@ -11,8 +11,15 @@
 #ifndef TAGCOMPONENT_H_INCLUDED
 #define TAGCOMPONENT_H_INCLUDED
 
+#include "../JuceLibraryCode/JuceHeader.h"
 
 
-
+class TagComponent : public TextButton
+{
+public:
+    TagComponent(String name) : TextButton(name), name(name) {}
+private:
+    String name;
+};
 
 #endif  // TAGCOMPONENT_H_INCLUDED

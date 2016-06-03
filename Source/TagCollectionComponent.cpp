@@ -10,20 +10,24 @@
 
 #include "TagCollectionComponent.h"
 
+TagCollectionComponent::TagCollectionComponent()
+: tags(nullptr)
+{}
+
 void TagCollectionComponent::paint (Graphics& g) {
-    String text;
-    if (tags != nullptr) {
-        const std::vector<String> tagStrs = tags->getTagStrs();
-        for (const String& tagStr: tagStrs) {
-            text += tagStr + " ";
-        }
-    }
-    if (text.isEmpty()) text = "no tags yet";
-    g.drawSingleLineText(text, 0, 25);
+    if (tagComponents.isEmpty()) {
+        g.drawSingleLineText("no tags", 0, 25);
+        return;
+    } 
 }
 
 void TagCollectionComponent::resized()  {
-    
+    float tcWidth = 1.0 / (float) tagComponents.size();
+    float i = 0;
+    for (auto iter = tagComponents.begin(); iter != tagComponents.end(); iter++, i++) {
+        TagComponent *tc = *iter;
+        tc->setBoundsRelative(i * tcWidth, 0, tcWidth, 1.0);
+    }
 }
 
 void TagCollectionComponent::changeListenerCallback(ChangeBroadcaster *source) {
@@ -34,6 +38,16 @@ void TagCollectionComponent::changeListenerCallback(ChangeBroadcaster *source) {
 
 
 void TagCollectionComponent::setTags(TagCollection *newTags) {
-    newTags->addChangeListener(this);
     this->tags = newTags;
+    if (tags == nullptr) return;
+    newTags->addChangeListener(this);
+    tagComponents.clear();
+    const std::vector<String> tagStrs = tags->getTagStrs();
+    for (const String& tagStr: tagStrs) {
+        TagComponent *tagComponent = new TagComponent(tagStr);
+        tagComponents.add(tagComponent);
+        addAndMakeVisible(tagComponent);
+    }
+    resized();
+    repaint();
 }

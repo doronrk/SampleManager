@@ -13,12 +13,14 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TagCollection.h"
+#include "TagComponent.h"
 
 class TagCollectionComponent:
     public Component,
     private ChangeListener
 {
 public:
+    TagCollectionComponent();
     void paint (Graphics& g) override;
     void resized() override;
     void setTags(TagCollection *newTags);
@@ -26,6 +28,7 @@ public:
 private:
     void changeListenerCallback(ChangeBroadcaster *source) override;
     TagCollection *tags;
+    OwnedArray<TagComponent> tagComponents;
 };
 
 

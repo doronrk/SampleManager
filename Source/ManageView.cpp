@@ -9,6 +9,7 @@
 */
 
 #include "ManageView.h"
+#include <signal.h>
 
 ManageView::ManageView(ManageModel& manageModel) :
     manageModel(manageModel)
@@ -39,6 +40,8 @@ void ManageView::changeListenerCallback(ChangeBroadcaster *source) {
         AudioThumbnail *thumbnail = sound->getThumbnail();
         thumbnailComponent.setThumbnail(thumbnail);
         TagCollection *tags = sound->getTagCollection();
+        tags->addTag("abdd");
+        tags->addTag("asdfasdf");
         tagCollectionComponent.setTags(tags);
     }
 }

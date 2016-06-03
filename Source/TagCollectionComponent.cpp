@@ -8,9 +8,9 @@
   ==============================================================================
 */
 
-#include "TagField.h"
+#include "TagCollectionComponent.h"
 
-void TagField::paint (Graphics& g) {
+void TagCollectionComponent::paint (Graphics& g) {
     String text;
     if (tags != nullptr) {
         const std::vector<String> tagStrs = tags->getTagStrs();
@@ -22,18 +22,18 @@ void TagField::paint (Graphics& g) {
     g.drawSingleLineText(text, 0, 25);
 }
 
-void TagField::resized()  {
-
+void TagCollectionComponent::resized()  {
+    
 }
 
-void TagField::changeListenerCallback(ChangeBroadcaster *source) {
+void TagCollectionComponent::changeListenerCallback(ChangeBroadcaster *source) {
     if (source == tags) {
         repaint();
     }
 }
 
 
-void TagField::setTags(TagCollection *newTags) {
+void TagCollectionComponent::setTags(TagCollection *newTags) {
     newTags->addChangeListener(this);
     this->tags = newTags;
 }

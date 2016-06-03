@@ -11,8 +11,8 @@
 #ifndef MANAGEVIEW_H_INCLUDED
 #define MANAGEVIEW_H_INCLUDED
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "TagField.h"
-#include "ThumbnailView.h"
+#include "TagCollectionComponent.h"
+#include "ThumbnailComponent.h"
 #include "ManageModel.h"
 
 class ManageView:
@@ -27,8 +27,8 @@ public:
 private:
     ManageModel& manageModel;
     TextEditor tagEditor;
-    TagField tagField;
-    ThumbnailView thumbnailView;
+    TagCollectionComponent tagCollectionComponent;
+    ThumbnailComponent thumbnailComponent;
     
     void changeListenerCallback(ChangeBroadcaster *source) override;
     void textEditorTextChanged(TextEditor &) override;

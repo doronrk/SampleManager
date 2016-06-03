@@ -16,11 +16,17 @@
         <FILE id="bdC7hW" name="ManageView.h" compile="0" resource="0" file="Source/ManageView.h"/>
         <FILE id="gr5ZCh" name="SearchView.cpp" compile="1" resource="0" file="Source/SearchView.cpp"/>
         <FILE id="o1fuhm" name="SearchView.h" compile="0" resource="0" file="Source/SearchView.h"/>
-        <FILE id="LeV01L" name="TagField.cpp" compile="1" resource="0" file="Source/TagField.cpp"/>
-        <FILE id="BiEsPM" name="TagField.h" compile="0" resource="0" file="Source/TagField.h"/>
-        <FILE id="y4bucV" name="ThumbnailView.cpp" compile="1" resource="0"
-              file="Source/ThumbnailView.cpp"/>
-        <FILE id="nnOgbt" name="ThumbnailView.h" compile="0" resource="0" file="Source/ThumbnailView.h"/>
+        <FILE id="LeV01L" name="TagCollectionComponent.cpp" compile="1" resource="0"
+              file="Source/TagCollectionComponent.cpp"/>
+        <FILE id="BiEsPM" name="TagCollectionComponent.h" compile="0" resource="0"
+              file="Source/TagCollectionComponent.h"/>
+        <FILE id="UhXz1m" name="TagComponent.cpp" compile="1" resource="0"
+              file="Source/TagComponent.cpp"/>
+        <FILE id="iZEb1h" name="TagComponent.h" compile="0" resource="0" file="Source/TagComponent.h"/>
+        <FILE id="y4bucV" name="ThumbnailComponent.cpp" compile="1" resource="0"
+              file="Source/ThumbnailComponent.cpp"/>
+        <FILE id="nnOgbt" name="ThumbnailComponent.h" compile="0" resource="0"
+              file="Source/ThumbnailComponent.h"/>
       </GROUP>
       <GROUP id="{78DCBD57-959B-2385-487A-3FD7D63061F2}" name="Model">
         <FILE id="QYXLul" name="TagCollection.cpp" compile="1" resource="0"

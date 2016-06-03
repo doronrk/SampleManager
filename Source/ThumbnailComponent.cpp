@@ -8,21 +8,21 @@
   ==============================================================================
 */
 
-#include "ThumbnailView.h"
+#include "ThumbnailComponent.h"
 
-ThumbnailView::ThumbnailView() :
+ThumbnailComponent::ThumbnailComponent() :
     thumbnail(nullptr),
     displayFullThumb(false)
 {}
 
-ThumbnailView::~ThumbnailView()
+ThumbnailComponent::~ThumbnailComponent()
 {
     if (hasThumbnail()) {
         thumbnail->removeChangeListener(this);
     }
 }
 
-void ThumbnailView::setThumbnail(AudioThumbnail *thumb) {
+void ThumbnailComponent::setThumbnail(AudioThumbnail *thumb) {
     if (hasThumbnail()) {
         thumbnail->removeChangeListener(this);
     }
@@ -31,7 +31,7 @@ void ThumbnailView::setThumbnail(AudioThumbnail *thumb) {
 }
 
 
-void ThumbnailView::paint (Graphics& g)
+void ThumbnailComponent::paint (Graphics& g)
 {
     g.fillAll (Colours::darkgrey);
     g.setColour (Colours::lightgrey);
@@ -48,16 +48,16 @@ void ThumbnailView::paint (Graphics& g)
     }
 }
 
-void ThumbnailView::resized() {
+void ThumbnailComponent::resized() {
     
 }
 
-bool ThumbnailView::hasThumbnail() {
+bool ThumbnailComponent::hasThumbnail() {
     return thumbnail != nullptr && thumbnail->getTotalLength() > 0.0;
 }
 
 
-void ThumbnailView::changeListenerCallback(ChangeBroadcaster *source)
+void ThumbnailComponent::changeListenerCallback(ChangeBroadcaster *source)
 {
     repaint();
 }

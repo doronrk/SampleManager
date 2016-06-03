@@ -13,13 +13,13 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class ThumbnailView :
+class ThumbnailComponent :
     public Component,
     private ChangeListener
 {
 public:
-    ThumbnailView();
-    ~ThumbnailView();
+    ThumbnailComponent();
+    ~ThumbnailComponent();
     void paint (Graphics& g) override;
     void resized() override;
     void setThumbnail(AudioThumbnail *thumb);

@@ -14,7 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TagCollection.h"
 
-class TagField:
+class TagCollectionComponent:
     public Component,
     private ChangeListener
 {

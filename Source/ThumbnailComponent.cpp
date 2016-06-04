@@ -61,3 +61,8 @@ void ThumbnailComponent::changeListenerCallback(ChangeBroadcaster *source)
 {
     repaint();
 }
+
+void ThumbnailComponent::setDisplayFullThumb(bool full) {
+    displayFullThumb = full;
+}
+

@@ -49,6 +49,9 @@ void Sound::addTag(String tag) {
     tags.addTag(tag);
 }
 
+bool Sound::hasTag(String tag) {
+    return tags.containsTag(tag);
+}
 
 TagCollection *Sound::getTagCollection() {
     return &tags;

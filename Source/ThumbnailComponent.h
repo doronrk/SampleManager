@@ -23,7 +23,7 @@ public:
     void paint (Graphics& g) override;
     void resized() override;
     void setThumbnail(AudioThumbnail *thumb);
-    
+    void setDisplayFullThumb(bool full);
     
 private:
     void changeListenerCallback(ChangeBroadcaster *source) override;

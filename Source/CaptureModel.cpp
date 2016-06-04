@@ -31,6 +31,7 @@ void CaptureModel::startRecording()
 {
     stopRecording();
     File captureFile = DAO::getAppSupportDir();
+    DBG("support dir: " + DAO::getAppSupportDir().getFullPathName());
     sound.prepareRecord(numInputChannels, sampleRate);
     recording = true;
     sendChangeMessage();

@@ -29,6 +29,8 @@ void ManageModel::setActiveSound(Sound* sound) {
 
 bool ManageModel::addTag(String tag) {
     if (!hasActiveSound()) return false;
+    if (tag.isEmpty()) return false;
+    if (activeSound->hasTag(tag)) return false;
     activeSound->addTag(tag);
     return true;
 }

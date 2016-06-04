@@ -18,6 +18,7 @@ class TagCollection : public ChangeBroadcaster
 public:
     void addTag(String tag);
     void removeTag(String tag);
+    bool containsTag(String tag);
     const std::vector<String>& getTagStrs() const;
 private:
     std::vector<String> tags;

@@ -18,7 +18,8 @@ TagCollectionComponent::TagCollectionComponent()
 
 void TagCollectionComponent::paint (Graphics& g) {
     if (tagComponents.isEmpty()) {
-        g.drawSingleLineText("no tags", 0, 25);
+        g.setColour(Colours::grey);
+        g.drawText("no tags", getLocalBounds(), Justification::centred, true);
         return;
     } 
 }

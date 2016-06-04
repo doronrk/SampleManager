@@ -25,6 +25,14 @@ void TagCollection::removeTag(String tagToRemove) {
     sendChangeMessage();
 }
 
+bool TagCollection::containsTag(String tag) {
+    for (auto it = tags.begin(); it != tags.end(); it++) {
+        if ((*it) == tag) return true;
+    }
+    return false;
+}
+
+
 const std::vector<String>& TagCollection::getTagStrs() const {
     return tags;
 }

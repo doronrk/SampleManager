@@ -1,6 +1,5 @@
 #include "MainComponent.h"
 
-
 MainContentComponent::MainContentComponent() :
 captureView(captureModel),
 manageView(manageModel)
@@ -9,6 +8,7 @@ manageView(manageModel)
     addAndMakeVisible(captureView);
     addAndMakeVisible(manageView);
     setSize (800, 800);
+    DAO::initDBconn();
 }
 
 MainContentComponent::~MainContentComponent()

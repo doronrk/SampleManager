@@ -12,13 +12,16 @@
 #define DAO_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "Sound.h"
 
 #define APP_DATA_DIRNAME "SampleManager"
 
 namespace DAO {
     void init();
+    void initDBconn();
     File getAppSupportDir();
     File getTempCaptureFile();
+    bool writeSound(Sound *sound);
 }
 
 #endif  // DAO_H_INCLUDED

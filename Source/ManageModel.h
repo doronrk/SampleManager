@@ -28,5 +28,4 @@ private:
 };
 
 
-
 #endif  // MANAGEMODEL_H_INCLUDED

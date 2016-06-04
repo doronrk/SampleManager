@@ -17,7 +17,8 @@
 class TagComponent : public TextButton
 {
 public:
-    TagComponent(String name) : TextButton(name), name(name) {}
+    TagComponent(String name);
+    void paintButton (Graphics& g, bool isMouseOverButton, bool isButtonDown) override;
 private:
     String name;
 };

@@ -27,6 +27,9 @@ public:
     
 private:
     void changeListenerCallback(ChangeBroadcaster *source) override;
+    bool keyPressed(const KeyPress &key) override;
+    void refreshTags();
+    void handleBackspacePressed();
     TagCollection *tags;
     OwnedArray<TagComponent> tagComponents;
 };

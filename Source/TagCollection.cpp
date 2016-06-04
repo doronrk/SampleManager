@@ -19,7 +19,7 @@ void TagCollection::removeTag(String tagToRemove) {
     for (auto it = tags.begin(); it != tags.end(); it++) {
         if ((*it) == tagToRemove) {
             tags.erase(it);
-            return;
+            break;
         }
     }
     sendChangeMessage();

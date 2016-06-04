@@ -12,7 +12,9 @@
 
 TagCollectionComponent::TagCollectionComponent()
 : tags(nullptr)
-{}
+{
+    setWantsKeyboardFocus(true);
+}
 
 void TagCollectionComponent::paint (Graphics& g) {
     if (tagComponents.isEmpty()) {
@@ -22,19 +24,40 @@ void TagCollectionComponent::paint (Graphics& g) {
 }
 
 void TagCollectionComponent::resized()  {
-    float tcWidth = 1.0 / (float) tagComponents.size();
-    float i = 0;
-    for (auto iter = tagComponents.begin(); iter != tagComponents.end(); iter++, i++) {
+    int tcHeight = getHeight() / 3.0;
+    int x = 0;
+    int y = 0;
+    int rightEdge = x + getWidth();
+    for (auto iter = tagComponents.begin(); iter != tagComponents.end(); iter++) {
         TagComponent *tc = *iter;
-        tc->setBoundsRelative(i * tcWidth, 0, tcWidth, 1.0);
+        int width = tc->getBestWidthForHeight(tcHeight);
+        if (x + width > rightEdge) {
+            x = 0;
+            y += tcHeight;
+        }
+        tc->setBounds(x, y, width, tcHeight);
+        x += width;
     }
 }
 
 void TagCollectionComponent::changeListenerCallback(ChangeBroadcaster *source) {
     if (source == tags) {
-        repaint();
+        refreshTags();
     }
 }
+
+void TagCollectionComponent::refreshTags() {
+    tagComponents.clear();
+    const std::vector<String> tagStrs = tags->getTagStrs();
+    for (const String& tagStr: tagStrs) {
+        TagComponent *tagComponent = new TagComponent(tagStr);
+        tagComponents.add(tagComponent);
+        addAndMakeVisible(tagComponent);
+    }
+    resized();
+    repaint();
+}
+
 
 
 void TagCollectionComponent::setTags(TagCollection *newTags) {
@@ -49,5 +72,24 @@ void TagCollectionComponent::setTags(TagCollection *newTags) {
         addAndMakeVisible(tagComponent);
     }
     resized();
-    repaint();
+    repaint();  
+}
+
+void TagCollectionComponent::handleBackspacePressed() {
+    for (auto iter = tagComponents.begin(); iter != tagComponents.end(); iter++) {
+        TagComponent *tc = *iter;
+        if (tc->getToggleState()) {
+            const String& tag = tc->getButtonText();
+            tags->removeTag(tag);
+        }
+    }
+}
+
+
+bool TagCollectionComponent::keyPressed(const KeyPress& key) {
+    if (key.getKeyCode() == KeyPress::backspaceKey) {
+        handleBackspacePressed();
+        return true;
+    }
+    return false;
 }

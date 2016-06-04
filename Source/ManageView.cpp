@@ -19,6 +19,8 @@ ManageView::ManageView(ManageModel& manageModel) :
     addAndMakeVisible(tagEditor);
     manageModel.addChangeListener(this);
     tagEditor.addListener(this);
+    tagEditor.setTextToShowWhenEmpty("add a new tag", Colours::grey);
+    tagEditor.setReturnKeyStartsNewLine(false);
 }
 
 void ManageView::paint (Graphics& g) {
@@ -49,4 +51,12 @@ void ManageView::changeListenerCallback(ChangeBroadcaster *source) {
 void ManageView::textEditorTextChanged(TextEditor &) {
     //string text = tagEditor.getText();
 }
+
+void ManageView::textEditorReturnKeyPressed(TextEditor &tagEditor) {
+    String text = tagEditor.getText();
+    if (manageModel.addTag(text)) {
+        tagEditor.clear();
+    }
+}
+
 

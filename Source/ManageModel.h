@@ -11,6 +11,7 @@
 #ifndef MANAGEMODEL_H_INCLUDED
 #define MANAGEMODEL_H_INCLUDED
 
+#include "../JuceLibraryCode/JuceHeader.h"
 #include "Sound.h"
 
 class ManageModel : public ChangeBroadcaster {
@@ -19,6 +20,9 @@ public:
     bool hasActiveSound() const;
     Sound *getActiveSound() const;
     void setActiveSound(Sound* sound);
+    
+    // returns true if successfully added, false otherwise
+    bool addTag(String tag);
 private:
     Sound *activeSound;
 };

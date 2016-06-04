@@ -45,6 +45,11 @@ void Sound::appendAudio(const float **data, int numChannels, int numSamples) {
     audiodataLock.unlock();
 }
 
+void Sound::addTag(String tag) {
+    tags.addTag(tag);
+}
+
+
 TagCollection *Sound::getTagCollection() {
     return &tags;
 }

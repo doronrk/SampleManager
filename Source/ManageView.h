@@ -32,6 +32,7 @@ private:
     
     void changeListenerCallback(ChangeBroadcaster *source) override;
     void textEditorTextChanged(TextEditor &) override;
+    void textEditorReturnKeyPressed(TextEditor &) override;
 };
 
 #endif  // MANAGEVIEW_H_INCLUDED

@@ -22,6 +22,7 @@ public:
     Sound();
     void prepareRecord(int numChannels, double sampleRate);
     void appendAudio(const float **data, int numChannels, int numSamples);
+    void addTag(String tag);
     TagCollection* getTagCollection();
     const std::vector<std::vector<float>>& getAudiodata() const;
     AudioThumbnail *getThumbnail();

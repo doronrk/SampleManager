@@ -22,6 +22,7 @@ public:
     Sound();
     void prepareRecord(int numChannels, double sampleRate);
     void appendAudio(const float **data, int numChannels, int numSamples);
+    void setName(String name);
     void addTag(String tag);
     bool hasTag(String tag);
     TagCollection* getTagCollection();
@@ -32,7 +33,8 @@ private:
     std::mutex audiodataLock;
     std::vector<std::vector<float>> audiodata;
     TagCollection tags;
-    std::string filepath;
+    String name;
+    String filepath;
     AudioFormatManager manager;
     AudioThumbnailCache cache;
     AudioThumbnail thumbnail;

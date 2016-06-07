@@ -17,10 +17,24 @@ ManageView::ManageView(ManageModel& manageModel) :
     addAndMakeVisible(tagCollectionComponent);
     addAndMakeVisible(thumbnailComponent);
     addAndMakeVisible(tagEditor);
+    addAndMakeVisible(nameEditor);
+    addAndMakeVisible(saveButton);
     manageModel.addChangeListener(this);
+    Font f;
+    f.setHeight(25.0);
     tagEditor.addListener(this);
     tagEditor.setTextToShowWhenEmpty("add a new tag", Colours::grey);
     tagEditor.setReturnKeyStartsNewLine(false);
+    tagEditor.setFont(f);
+    tagEditor.setColour(TextEditor::ColourIds::outlineColourId, Colours::black);
+    nameEditor.addListener(this);
+    nameEditor.setTextToShowWhenEmpty("no name", Colours::grey);
+    nameEditor.setReturnKeyStartsNewLine(false);
+    nameEditor.setFont(f);
+    nameEditor.setColour(TextEditor::ColourIds::outlineColourId, Colours::black);
+
+    
+    saveButton.setButtonText("Save");
 }
 
 void ManageView::paint (Graphics& g) {
@@ -28,11 +42,14 @@ void ManageView::paint (Graphics& g) {
 
 void ManageView::resized() {
     float thumbnailHeight = 0.5;
-    thumbnailComponent.setBoundsRelative(0.0, 0.0, 1.0, thumbnailHeight);
-    float tagFieldHeight = .25;
-    tagCollectionComponent.setBoundsRelative(0.0, thumbnailHeight, 1.0, tagFieldHeight);
-    float tagEditorHeight = 1.0 - thumbnailHeight - tagFieldHeight;
-    tagEditor.setBoundsRelative(0.0, 1.0 - tagEditorHeight, 1.0, tagEditorHeight);
+    float thumbnailWidth = 0.9;
+    thumbnailComponent.setBoundsRelative(0.0, 0.0, thumbnailWidth, thumbnailHeight);
+    saveButton.setBoundsRelative(thumbnailWidth, 0.0, 1.0 - thumbnailWidth, thumbnailHeight);
+    float textFieldsHeight = .1;
+    float nameWidth = .5;
+    nameEditor.setBoundsRelative(0.0, thumbnailHeight, nameWidth, textFieldsHeight);
+    tagEditor.setBoundsRelative(nameWidth, thumbnailHeight, 1.0 - nameWidth, textFieldsHeight);
+    tagCollectionComponent.setBoundsRelative(0.0, thumbnailHeight + textFieldsHeight, 1.0, 1.0 - thumbnailHeight - textFieldsHeight);
 }
 
 void ManageView::changeListenerCallback(ChangeBroadcaster *source) {
@@ -50,10 +67,14 @@ void ManageView::textEditorTextChanged(TextEditor &) {
     //string text = tagEditor.getText();
 }
 
-void ManageView::textEditorReturnKeyPressed(TextEditor &tagEditor) {
+void ManageView::textEditorReturnKeyPressed(TextEditor &textEditor) {
     String text = tagEditor.getText();
-    if (manageModel.addTag(text)) {
-        tagEditor.clear();
+    if (&textEditor == &tagEditor) {
+        if (manageModel.addTag(text)) {
+            tagEditor.clear();
+        }
+    } else if (&textEditor == &nameEditor) {
+        manageModel.setName(text);
     }
 }
 

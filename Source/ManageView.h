@@ -26,9 +26,11 @@ public:
     void resized() override;
 private:
     ManageModel& manageModel;
+    TextEditor nameEditor;
     TextEditor tagEditor;
     TagCollectionComponent tagCollectionComponent;
     ThumbnailComponent thumbnailComponent;
+    TextButton saveButton;
     
     void changeListenerCallback(ChangeBroadcaster *source) override;
     void textEditorTextChanged(TextEditor &) override;

@@ -23,6 +23,7 @@ public:
     
     // returns true if successfully added, false otherwise
     bool addTag(String tag);
+    bool setName(String name);
 private:
     Sound *activeSound;
 };

@@ -34,3 +34,10 @@ bool ManageModel::addTag(String tag) {
     activeSound->addTag(tag);
     return true;
 }
+
+bool ManageModel::setName(String name) {
+    if (!hasActiveSound()) return false;
+    if (name.isEmpty()) return false;
+    activeSound->setName(name);
+    return true;
+}

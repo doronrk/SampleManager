@@ -111,3 +111,26 @@ File DAO::getTempCaptureFile()
     File captureFile(support.getNonexistentChildFile("temp-capture", ".wav"));
     return captureFile;
 }
+
+bool DAO::writeSound(Sound *sound) {
+    if (sound == nullptr) return false;
+    File support = DAO::getAppSupportDir();
+    File audioDataFile(support.getNonexistentChildFile(sound->getName(), ".wav"));
+    cout << audioDataFile.getFullPathName() << endl;
+    WavAudioFormat wavForm;
+    FileOutputStream* outStream = audioDataFile.createOutputStream();
+    const std::vector<std::vector<float>>& audioData = sound->getAudiodata();
+    int nChannels = audioData.size();
+    int nSamples = audioData[0].size();
+    juce::ScopedPointer<AudioFormatWriter> writer = wavForm.createWriterFor(outStream, 44100, nChannels, 24, NULL, 0);
+    ;
+    AudioSampleBuffer buff(nChannels, nSamples);
+    for (int i = 0; i < nChannels; i++) {
+        float *w = buff.getWritePointer(i);
+        for (int j = 0; j < nSamples; j++) {
+            w[j] = audioData[i][j];
+        }
+    }
+    writer->writeFromAudioSampleBuffer(buff, 0, nSamples);
+    return true;
+}

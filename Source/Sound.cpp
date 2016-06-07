@@ -45,6 +45,11 @@ void Sound::appendAudio(const float **data, int numChannels, int numSamples) {
     audiodataLock.unlock();
 }
 
+const String& Sound::getName() {
+    return name;
+}
+
+
 void Sound::setName(String name) {
     this->name = name;
 }

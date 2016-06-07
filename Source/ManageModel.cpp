@@ -9,6 +9,7 @@
 */
 
 #include "ManageModel.h"
+#include "DAO.h"
 
 ManageModel::ManageModel() :
     activeSound(nullptr)
@@ -41,3 +42,10 @@ bool ManageModel::setName(String name) {
     activeSound->setName(name);
     return true;
 }
+
+bool ManageModel::save() {
+    if (!hasActiveSound()) return false;
+    DAO::writeSound(activeSound);
+    return true;
+}
+

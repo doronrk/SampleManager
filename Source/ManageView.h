@@ -18,7 +18,8 @@
 class ManageView:
     public Component,
     private ChangeListener,
-    private TextEditor::Listener
+    private TextEditor::Listener,
+    private Button::Listener
 {
 public:
     ManageView(ManageModel& manageModel);
@@ -35,6 +36,8 @@ private:
     void changeListenerCallback(ChangeBroadcaster *source) override;
     void textEditorTextChanged(TextEditor &) override;
     void textEditorReturnKeyPressed(TextEditor &) override;
+    
+    void buttonClicked(Button* b) override;
 };
 
 #endif  // MANAGEVIEW_H_INCLUDED

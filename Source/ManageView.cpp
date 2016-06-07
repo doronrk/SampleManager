@@ -32,9 +32,9 @@ ManageView::ManageView(ManageModel& manageModel) :
     nameEditor.setReturnKeyStartsNewLine(false);
     nameEditor.setFont(f);
     nameEditor.setColour(TextEditor::ColourIds::outlineColourId, Colours::black);
-
     
     saveButton.setButtonText("Save");
+    saveButton.addListener(this);
 }
 
 void ManageView::paint (Graphics& g) {
@@ -68,13 +68,19 @@ void ManageView::textEditorTextChanged(TextEditor &) {
 }
 
 void ManageView::textEditorReturnKeyPressed(TextEditor &textEditor) {
-    String text = tagEditor.getText();
+    String text = textEditor.getText();
     if (&textEditor == &tagEditor) {
         if (manageModel.addTag(text)) {
             tagEditor.clear();
         }
     } else if (&textEditor == &nameEditor) {
         manageModel.setName(text);
+    }
+}
+
+void ManageView::buttonClicked(Button* b) {
+    if (b == &saveButton) {
+        manageModel.save();
     }
 }
 

@@ -22,6 +22,7 @@ public:
     Sound();
     void prepareRecord(int numChannels, double sampleRate);
     void appendAudio(const float **data, int numChannels, int numSamples);
+    const String& getName();
     void setName(String name);
     void addTag(String tag);
     bool hasTag(String tag);

@@ -19,6 +19,7 @@ recording(false)
     String audioError = deviceManager.initialise(NCHANNELS, NCHANNELS, nullptr, true);
     jassert (audioError.isEmpty());
     deviceManager.addAudioCallback(this);
+    dao = DAO::getDAO();
 }
 
 CaptureModel::~CaptureModel()
@@ -30,8 +31,6 @@ CaptureModel::~CaptureModel()
 void CaptureModel::startRecording()
 {
     stopRecording();
-    File captureFile = DAO::getAppSupportDir();
-    DBG("support dir: " + DAO::getAppSupportDir().getFullPathName());
     sound.prepareRecord(numInputChannels, sampleRate);
     recording = true;
     sendChangeMessage();

@@ -13,7 +13,9 @@
 
 ManageModel::ManageModel() :
     activeSound(nullptr)
-{}
+{
+    dao = DAO::getDAO();
+}
 
 bool ManageModel::hasActiveSound() const {
     return activeSound != nullptr;
@@ -45,7 +47,7 @@ bool ManageModel::setName(String name) {
 
 bool ManageModel::save() {
     if (!hasActiveSound()) return false;
-    DAO::writeSound(activeSound);
+    dao->writeSound(activeSound);
     return true;
 }
 

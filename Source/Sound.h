@@ -20,6 +20,7 @@
 class Sound {
 public:
     Sound();
+    Sound(String str);
     void prepareRecord(int numChannels, double sampleRate);
     void appendAudio(const float **data, int numChannels, int numSamples);
     const String& getName();
@@ -29,13 +30,14 @@ public:
     TagCollection* getTagCollection();
     const std::vector<std::vector<float>>& getAudiodata() const;
     AudioThumbnail *getThumbnail();
+    ValueTree getValueTree();
+    String getAsString();
     
 private:
     std::mutex audiodataLock;
     std::vector<std::vector<float>> audiodata;
     TagCollection tags;
     String name;
-    String filepath;
     AudioFormatManager manager;
     AudioThumbnailCache cache;
     AudioThumbnail thumbnail;

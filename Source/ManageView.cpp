@@ -80,6 +80,8 @@ void ManageView::textEditorReturnKeyPressed(TextEditor &textEditor) {
 
 void ManageView::buttonClicked(Button* b) {
     if (b == &saveButton) {
+        String nametext = nameEditor.getText();
+        manageModel.setName(nametext);
         manageModel.save();
     }
 }

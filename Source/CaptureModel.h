@@ -44,6 +44,7 @@ private:
     int numInputChannels;
     bool recording;
     Sound sound;
+    DAO *dao;
 };
 
 

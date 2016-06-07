@@ -19,9 +19,9 @@ public:
     void addTag(String tag);
     void removeTag(String tag);
     bool containsTag(String tag);
-    const std::vector<String>& getTagStrs() const;
+    const Array<String>& getTagStrs() const;
 private:
-    std::vector<String> tags;
+    Array<String> tags;
 };
 
 #endif  // TAGCOLLECTION_H_INCLUDED

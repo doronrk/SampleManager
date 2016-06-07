@@ -11,17 +11,12 @@
 #include "TagCollection.h"
 
 void TagCollection::addTag(String tag) {
-    tags.push_back(tag);
+    tags.add(tag);
     sendChangeMessage();
 }
 
 void TagCollection::removeTag(String tagToRemove) {
-    for (auto it = tags.begin(); it != tags.end(); it++) {
-        if ((*it) == tagToRemove) {
-            tags.erase(it);
-            break;
-        }
-    }
+    tags.remove(&tagToRemove);
     sendChangeMessage();
 }
 
@@ -33,6 +28,6 @@ bool TagCollection::containsTag(String tag) {
 }
 
 
-const std::vector<String>& TagCollection::getTagStrs() const {
+const Array<String>& TagCollection::getTagStrs() const {
     return tags;
 }

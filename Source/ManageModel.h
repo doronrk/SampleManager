@@ -13,6 +13,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Sound.h"
+#include "DAO.h"
 
 class ManageModel : public ChangeBroadcaster {
 public:
@@ -27,6 +28,7 @@ public:
     bool save();
 private:
     Sound *activeSound;
+    DAO *dao;
 };
 
 

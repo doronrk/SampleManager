@@ -18,6 +18,20 @@ cache(THUMB_CACHE_CAP),
 thumbnail(THUMB_RES, manager, cache)
 {}
 
+Sound::Sound(String str) :
+cache(THUMB_CACHE_CAP),
+thumbnail(THUMB_RES, manager, cache)
+{
+    StringArray lines;
+    lines.addTokens(str, "\n", "\"");
+    name = lines[0];
+    StringArray tags;
+    tags.addTokens(lines[1], ",", "\"");
+    for (const String& tag: tags) {
+        addTag(tag);
+    }
+}
+
 void Sound::prepareRecord(int numChannels, double sampleRate) {
     audiodataLock.lock();
     audiodata.clear();
@@ -56,6 +70,7 @@ void Sound::setName(String name) {
 
 
 void Sound::addTag(String tag) {
+    if (tag.isEmpty()) return;
     tags.addTag(tag);
 }
 
@@ -73,4 +88,23 @@ const std::vector<std::vector<float>>& Sound::getAudiodata() const {
 
 AudioThumbnail *Sound::getThumbnail() {
     return &thumbnail;
+}
+
+ValueTree Sound::getValueTree() {
+    ValueTree vt("sound");
+    vt.setProperty("name", name, 0);
+    const Array<String>& ts = tags.getTagStrs();
+    Array<var> vs;
+    vs.addArray(ts);
+    vt.setProperty("tags", vs, 0);
+    return vt;
+}
+
+String Sound::getAsString() {
+    String s = name;
+    s += "\n";
+    for (const String& t: tags.getTagStrs()) {
+        s += t + ",";
+    }
+    return s;
 }

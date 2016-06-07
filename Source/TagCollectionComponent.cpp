@@ -49,7 +49,7 @@ void TagCollectionComponent::changeListenerCallback(ChangeBroadcaster *source) {
 
 void TagCollectionComponent::refreshTags() {
     tagComponents.clear();
-    const std::vector<String> tagStrs = tags->getTagStrs();
+    const Array<String>& tagStrs = tags->getTagStrs();
     for (const String& tagStr: tagStrs) {
         TagComponent *tagComponent = new TagComponent(tagStr);
         tagComponents.add(tagComponent);
@@ -66,7 +66,7 @@ void TagCollectionComponent::setTags(TagCollection *newTags) {
     if (tags == nullptr) return;
     newTags->addChangeListener(this);
     tagComponents.clear();
-    const std::vector<String> tagStrs = tags->getTagStrs();
+    const Array<String> tagStrs = tags->getTagStrs();
     for (const String& tagStr: tagStrs) {
         TagComponent *tagComponent = new TagComponent(tagStr);
         tagComponents.add(tagComponent);

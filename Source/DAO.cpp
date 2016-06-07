@@ -28,6 +28,9 @@
 #include <cppconn/prepared_statement.h>
  */
 
+DAO *DAO::s_dao = nullptr;
+std::mutex DAO::singletonGuard;
+
 using namespace std;
 void DAO::initDBconn() {
     cout << endl;
@@ -85,6 +88,50 @@ void DAO::initDBconn() {
 }
 
 using namespace juce;
+// private constructor
+DAO::DAO() {
+    init();
+}
+
+DAO *DAO::getDAO() {
+    singletonGuard.lock();
+    if (s_dao == nullptr) {
+        s_dao = new DAO();
+    }
+    singletonGuard.unlock();
+    return s_dao;
+}
+
+void DAO::initSoundCache() {
+    File support = DAO::getAppSupportDir();
+    Array<File> children;
+    support.findChildFiles(children, File::findFiles, false, "*.data");
+    WavAudioFormat wavForm;
+    for (File child: children) {
+        FileInputStream *fis = child.createInputStream();
+        String str = fis->readEntireStreamAsString();
+        Sound *s = new Sound(str);
+        
+        String audiofilename = s->getName() + ".wav";
+        File audioDataFile(support.getChildFile(audiofilename));
+        FileInputStream *audiofis = audioDataFile.createInputStream();
+        if (audiofis == nullptr) continue;
+        ScopedPointer<AudioFormatReader> reader = wavForm.createReaderFor(audiofis, false);
+        // TODO better error checking and file regex filtering
+        if (reader == nullptr) continue;
+        // TODO more sensible conversion between float vectors and juce sample buffers
+        int nSamples = reader->lengthInSamples;
+        AudioSampleBuffer buff(reader->numChannels, nSamples);
+        reader->read(&buff, 0, nSamples, 0, true, true);
+        s->prepareRecord(buff.getNumChannels(), reader->sampleRate);
+        s->appendAudio(buff.getArrayOfReadPointers(), buff.getNumChannels(), buff.getNumSamples());
+        
+        soundCollection.push_back(s);
+        std::cout << s->getAsString() << std::endl;
+    }
+}
+
+
 void DAO::init()
 {
     File support(File::getSpecialLocation(File::userApplicationDataDirectory)
@@ -92,7 +139,7 @@ void DAO::init()
     if (!support.exists()) {
         support.createDirectory();
     }
-    
+    initSoundCache();
 }
 
 File DAO::getAppSupportDir()
@@ -116,13 +163,13 @@ bool DAO::writeSound(Sound *sound) {
     if (sound == nullptr) return false;
     File support = DAO::getAppSupportDir();
     File audioDataFile(support.getNonexistentChildFile(sound->getName(), ".wav"));
-    cout << audioDataFile.getFullPathName() << endl;
     WavAudioFormat wavForm;
     FileOutputStream* outStream = audioDataFile.createOutputStream();
     const std::vector<std::vector<float>>& audioData = sound->getAudiodata();
     int nChannels = audioData.size();
+    if (nChannels == 0) return false;
     int nSamples = audioData[0].size();
-    juce::ScopedPointer<AudioFormatWriter> writer = wavForm.createWriterFor(outStream, 44100, nChannels, 24, NULL, 0);
+    ScopedPointer<AudioFormatWriter> writer = wavForm.createWriterFor(outStream, 44100, nChannels, 24, nullptr, 0);
     ;
     AudioSampleBuffer buff(nChannels, nSamples);
     for (int i = 0; i < nChannels; i++) {
@@ -132,5 +179,13 @@ bool DAO::writeSound(Sound *sound) {
         }
     }
     writer->writeFromAudioSampleBuffer(buff, 0, nSamples);
+    File dataFile(support.getNonexistentChildFile(sound->getName(), ".data"));
+    ScopedPointer<FileOutputStream> fos = dataFile.createOutputStream();
+    fos->writeString(sound->getAsString());
     return true;
 }
+
+const std::vector<Sound *>& DAO::getSoundCollection() {
+    return soundCollection;
+}
+

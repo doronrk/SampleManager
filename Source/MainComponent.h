@@ -16,7 +16,9 @@
 #include "ManageView.h"
 #include "SearchView.h"
 
-class MainContentComponent : public Component
+class MainContentComponent :
+public Component,
+private Button::Listener
 {
 public:
     MainContentComponent();
@@ -25,14 +27,16 @@ public:
     void paint (Graphics& g) override;
     void resized() override;
     
-    bool keyPressed(const KeyPress& key) override;
 private:
+    void buttonClicked(Button* b) override;
+    
     CaptureModel captureModel;
     ManageModel manageModel;
     
     CaptureView captureView;
     ManageView manageView;
     SearchView searchView;
+    TextButton toggle;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 };

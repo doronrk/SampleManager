@@ -61,6 +61,7 @@ void ManageView::changeListenerCallback(ChangeBroadcaster *source) {
         thumbnail->sendChangeMessage();
         TagCollection *tags = sound->getTagCollection();
         tagCollectionComponent.setTags(tags);
+        nameEditor.setText(sound->getName());
     }
 }
 

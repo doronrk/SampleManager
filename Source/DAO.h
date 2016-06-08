@@ -31,7 +31,7 @@ private:
     void init();
     void initSoundCache();
     void initDBconn();
-    const std::vector<Sound *> soundCollection;
+    std::vector<Sound *> soundCollection;
 };
 
 #endif  // DAO_H_INCLUDED

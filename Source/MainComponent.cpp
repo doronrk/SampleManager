@@ -5,8 +5,10 @@ captureView(captureModel),
 manageView(manageModel)
 {
     manageModel.setActiveSound(captureModel.getSound());
-    addAndMakeVisible(captureView);
+    addChildComponent(captureView);
+    //addAndMakeVisible(captureView);
     addAndMakeVisible(manageView);
+    addAndMakeVisible(searchView);
     setSize (800, 800);
 }
 
@@ -23,7 +25,8 @@ void MainContentComponent::paint (Graphics& g)
 
 void MainContentComponent::resized() 
 {
-    float managePortion = 0.7;
+    float managePortion = 0.5;
     manageView.setBoundsRelative(0.0, 0.0, 1.0, managePortion);
     captureView.setBoundsRelative(0.0, managePortion, 1.0, 1.0 - managePortion);
+    searchView.setBoundsRelative(0.0, managePortion, 1.0, 1.0 - managePortion);
 }

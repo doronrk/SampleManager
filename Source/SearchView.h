@@ -18,7 +18,8 @@ class SearchView  : public Component,
 private ListBoxModel,
 private Slider::Listener,
 private Button::Listener,
-private ComboBox::Listener
+private ComboBox::Listener,
+private TextEditor::Listener
 {
 public:
     SearchView(ManageModel& manageModel) :
@@ -27,7 +28,16 @@ public:
         dao = DAO::getDAO();
         setOpaque (true);
         
-        addAndMakeVisible (listBox);
+        Font f;
+        f.setHeight(25.0);
+        searchField.addListener(this);
+        searchField.setTextToShowWhenEmpty("search for a tag", Colours::grey);
+        searchField.setReturnKeyStartsNewLine(false);
+        searchField.setFont(f);
+        searchField.setColour(TextEditor::ColourIds::outlineColourId, Colours::black);
+        
+        addAndMakeVisible(listBox);
+        addAndMakeVisible(searchField);
         
         const std::vector<Sound *>& soundVector = dao->getSoundCollection();
         for (Sound* sound: soundVector) {
@@ -47,7 +57,8 @@ public:
     
     void resized() override
     {
-        listBox.setBoundsRelative(0.0, 0.0, 1.0, 1.0);
+        searchField.setBoundsRelative(0.0, 0.0, 1.0, 0.1);
+        listBox.setBoundsRelative(0.0, 0.1, 1.0, 0.9);
     }
     
     void sliderValueChanged (Slider* sliderThatWasMoved) override
@@ -71,8 +82,8 @@ public:
     {
         if (rowIsSelected)
             g.fillAll (Colours::lightblue);
-        
         Sound *sound = sounds[rowNumber];
+        if (sound == nullptr) return;
         AttributedString s;
         s.setWordWrap (AttributedString::none);
         s.setJustification (Justification::centred);
@@ -87,7 +98,10 @@ public:
     void selectedRowsChanged (int /*lastRowselected*/) override
     {
         int row = listBox.getSelectedRow();
-        manageModel.setActiveSound(sounds[row]);
+        if (row > sounds.size()) return;
+        Sound *sound = sounds[row];
+        if (sound == nullptr) return;
+        manageModel.setActiveSound(sound);
     }
     
 private:
@@ -96,6 +110,7 @@ private:
     Array<Sound *> sounds;
     StringArray currentStyleList;
     
+    TextEditor searchField;
     ListBox listBox;
     
     
@@ -103,6 +118,23 @@ private:
     {
 
     }
+    
+    void textEditorReturnKeyPressed(TextEditor &textEditor) override {
+        if (&textEditor == &searchField) {
+            sounds.clear();
+            const std::vector<Sound *>& soundVector = dao->getSoundCollection();
+            String text = searchField.getText();
+            for (Sound *sound: soundVector) {
+                if (text.isEmpty()) {
+                    sounds.add(sound);
+                } else if (sound->hasTag(text)) {
+                    sounds.add(sound);
+                }
+            }
+            repaint();
+        }
+    }
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SearchView)
 };

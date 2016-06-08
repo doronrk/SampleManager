@@ -58,6 +58,7 @@ void ManageView::changeListenerCallback(ChangeBroadcaster *source) {
         Sound *sound = manageModel.getActiveSound();
         AudioThumbnail *thumbnail = sound->getThumbnail();
         thumbnailComponent.setThumbnail(thumbnail);
+        thumbnail->sendChangeMessage();
         TagCollection *tags = sound->getTagCollection();
         tagCollectionComponent.setTags(tags);
     }

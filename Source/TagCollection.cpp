@@ -16,7 +16,12 @@ void TagCollection::addTag(String tag) {
 }
 
 void TagCollection::removeTag(String tagToRemove) {
-    tags.remove(&tagToRemove);
+    for (int i = 0; i < tags.size(); i++) {
+        if (tags[i] == tagToRemove) {
+            tags.remove(i);
+            return;
+        }
+    }
     sendChangeMessage();
 }
 

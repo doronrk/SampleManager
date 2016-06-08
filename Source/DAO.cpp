@@ -162,7 +162,8 @@ File DAO::getTempCaptureFile()
 bool DAO::writeSound(Sound *sound) {
     if (sound == nullptr) return false;
     File support = DAO::getAppSupportDir();
-    File audioDataFile(support.getNonexistentChildFile(sound->getName(), ".wav"));
+    File audioDataFile(support.getChildFile(sound->getName() + ".wav"));
+    if (audioDataFile.exists()) audioDataFile.deleteFile();
     WavAudioFormat wavForm;
     FileOutputStream* outStream = audioDataFile.createOutputStream();
     const std::vector<std::vector<float>>& audioData = sound->getAudiodata();
@@ -179,7 +180,8 @@ bool DAO::writeSound(Sound *sound) {
         }
     }
     writer->writeFromAudioSampleBuffer(buff, 0, nSamples);
-    File dataFile(support.getNonexistentChildFile(sound->getName(), ".data"));
+    File dataFile(support.getChildFile(sound->getName() + ".data"));
+    if (dataFile.exists()) dataFile.deleteFile();
     ScopedPointer<FileOutputStream> fos = dataFile.createOutputStream();
     fos->writeString(sound->getAsString());
     return true;
